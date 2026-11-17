@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kubernetes Deployment &mdash; dbguard Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=0fc419ee" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9cffa99" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CLI Reference" href="../reference/cli.html" />
+    <link rel="prev" title="Single-Host Deployment" href="single-host.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dbguard
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#what-is-dbguard">What is dbguard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#the-problem-it-solves">The problem it solves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#two-planes-one-policy">Two planes, one policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#core-capabilities">Core capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#what-it-is-not">What it is <em>not</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/introduction.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/installation.html#install-the-build-toolchain-ubuntu">Install the build toolchain (Ubuntu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/installation.html#build-from-source">Build from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/installation.html#optional-debug-symbols-for-stripped-db-binaries">Optional: debug symbols for stripped DB binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/installation.html#verify">Verify</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#start-the-daemon">1. Start the daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#watch-queries-being-audited">2. Watch queries being audited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#block-a-query-detection-plane">3. Block a query (detection plane)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#block-a-query-synchronously-inline-proxy">4. Block a query <em>synchronously</em> (inline proxy)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#write-your-own-rule">5. Write your own rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/quickstart.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/configuration.html#key-sections">Key sections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/configuration.html#ebpf"><code class="docutils literal notranslate"><span class="pre">ebpf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/configuration.html#policies"><code class="docutils literal notranslate"><span class="pre">policies</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/configuration.html#identity"><code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/configuration.html#proxies"><code class="docutils literal notranslate"><span class="pre">proxies</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/configuration.html#audit-api-metrics"><code class="docutils literal notranslate"><span class="pre">audit</span></code> / <code class="docutils literal notranslate"><span class="pre">api</span></code> / <code class="docutils literal notranslate"><span class="pre">metrics</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/configuration.html#minimal-configurations">Minimal configurations</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#component-map">Component map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#the-five-layers">The five layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#process-wide-per-engine-attach">Process-wide, per-engine attach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#the-two-planes-side-by-side">The two planes side by side</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/dataflow.html">Data Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#detection-path-ebpf-uprobe">Detection path (eBPF uprobe)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#enforcement-path-inline-proxy">Enforcement path (inline proxy)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#the-pipeline-stages">The pipeline stages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#policy-evaluation-briefly">Policy evaluation, briefly</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/enforcement.html">Enforcement Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#detection-plane-detect-audit-react">Detection plane: detect, audit, react</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/enforcement.html#reactive-actions-when-drop-enabled-true">Reactive actions (when <code class="docutils literal notranslate"><span class="pre">drop_enabled:</span> <span class="pre">true</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#enforcement-plane-synchronous-inline-proxy">Enforcement plane: synchronous inline proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#choosing-a-model">Choosing a model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#action-catalogue">Action catalogue</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/cilium.html">Cilium Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#why-identity-not-ip">Why identity, not IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#how-enrichment-works">How enrichment works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#identity-based-access-control">Identity-based access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#micro-segmentation-defence-in-depth">Micro-segmentation (defence in depth)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#end-to-end-on-a-live-cluster">End-to-end, on a live cluster</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../features/policy-dsl.html">Policy DSL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#document-skeleton">Document skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#rule-fields">Rule fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#the-query-matcher">The <code class="docutils literal notranslate"><span class="pre">query</span></code> matcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#the-rate-matcher">The <code class="docutils literal notranslate"><span class="pre">rate</span></code> matcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#matching-semantics">Matching semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#hot-reload">Hot reload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#four-worked-examples">Four worked examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/writing-rules.html">Writing Rules: a Cookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#how-matching-works-read-this-first">How matching works (read this first)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#deny-update-on-a-particular-table">Deny <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> on a particular table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#protect-one-column-from-being-written">Protect one column from being written</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#deny-a-specific-value-being-set">Deny a specific <strong>value</strong> being set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#block-delete-without-a-where-clause">Block <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> without a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#restrict-writes-to-a-table-to-one-user-or-workload">Restrict writes to a table to one user or workload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#patterns-you-will-reuse">Patterns you will reuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#authoring-workflow">Authoring workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#enforcement-reminder">Enforcement reminder</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/sql-firewall.html">SQL-Injection Firewall</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#covered-patterns">Covered patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#testing-it">Testing it</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#tuning-and-false-positives">Tuning and false positives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#extending-the-firewall">Extending the firewall</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/pii-protection.html">PII &amp; Sensitive-Column Protection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#deny-vs-mask">Deny vs. mask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#protecting-a-column-the-right-way">Protecting a column the right way</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#example-lock-down-an-employees-table">Example: lock down an <code class="docutils literal notranslate"><span class="pre">employees</span></code> table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/rate-limiting.html">Rate Limiting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#example-cap-a-tagged-query">Example: cap a tagged query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#choosing-a-key-and-a-limit">Choosing a key and a limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#built-in-rate-rules">Built-in rate rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/identity-access.html">Identity-Based Access Control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#the-identities-filter">The <code class="docutils literal notranslate"><span class="pre">identities</span></code> filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#allow-list-pattern">Allow-list pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#deny-a-specific-identity">Deny a specific identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#testing-on-a-live-cluster">Testing on a live cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#where-it-enforces">Where it enforces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/audit-events.html">Audit, Events &amp; Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#the-audit-store">The audit store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#the-http-api">The HTTP API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#metrics">Metrics</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="single-host.html">Single-Host Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="single-host.html#run-under-systemd">Run under systemd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-host.html#layout">Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-host.html#fronting-a-connection-with-the-proxy">Fronting a connection with the proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-host.html#enabling-reactive-enforcement">Enabling reactive enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-host.html#avoiding-stale-listeners">Avoiding stale listeners</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#manifests">Manifests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#daemonset-essentials">DaemonSet essentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-and-load-the-image">Build and load the image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy">Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enable-cilium-identity">Enable Cilium identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#route-an-app-through-the-proxy">Route an app through the proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hot-load-a-policy-into-the-running-agent">Hot-load a policy into the running agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#micro-segmentation-optional-recommended">Micro-segmentation (optional, recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operational-notes">Operational notes</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cli.html">CLI Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#dbguardd-the-daemon"><code class="docutils literal notranslate"><span class="pre">dbguardd</span></code> - the daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#dbguard-cli-admin-testing"><code class="docutils literal notranslate"><span class="pre">dbguard-cli</span></code> - admin &amp; testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#validate-policy"><code class="docutils literal notranslate"><span class="pre">validate-policy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#dry-run"><code class="docutils literal notranslate"><span class="pre">dry-run</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#exit-codes">Exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/policy-schema.html">Policy Schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#document">Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#rule">Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#querymatcher">QueryMatcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#raterule">RateRule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#actions">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#evaluation-order">Evaluation order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/config-reference.html">Configuration Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#general"><code class="docutils literal notranslate"><span class="pre">general</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#ebpf"><code class="docutils literal notranslate"><span class="pre">ebpf</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#policies"><code class="docutils literal notranslate"><span class="pre">policies</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#audit"><code class="docutils literal notranslate"><span class="pre">audit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#identity"><code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#api-metrics"><code class="docutils literal notranslate"><span class="pre">api</span></code> / <code class="docutils literal notranslate"><span class="pre">metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#proxies"><code class="docutils literal notranslate"><span class="pre">proxies</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#query-auditing">Query auditing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#cilium-identity">Cilium identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#inline-proxy">Inline proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#ebpf-load-warnings">eBPF load warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#general">General</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/building.html">Building &amp; Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#repository-layout">Repository layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#build-targets">Build targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#writing-an-ebpf-program">Writing an eBPF program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#module-path">Module path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#pull-requests">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/changelog.html#version-1-0-0">Version 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dbguard</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Kubernetes Deployment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/deployment/kubernetes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="kubernetes-deployment">
+<h1>Kubernetes Deployment<a class="headerlink" href="#kubernetes-deployment" title="Link to this heading"></a></h1>
+<p>On Kubernetes, dbguard runs as a <strong>DaemonSet</strong> so one agent per node can uprobe the
+database processes on that node, and - with Cilium - bind every query to its workload
+identity. This page follows the manifests under <code class="docutils literal notranslate"><span class="pre">deploy/k8s</span></code> and <code class="docutils literal notranslate"><span class="pre">deploy/cilium</span></code>.</p>
+<section id="manifests">
+<h2>Manifests<a class="headerlink" href="#manifests" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>deploy/
+├── Dockerfile                 # builds the image (make bpf go-build)
+├── k8s/
+│   ├── namespace.yaml
+│   ├── rbac.yaml
+│   ├── configmap.yaml         # dbguard.yaml (mounted at /etc/dbguard)
+│   ├── daemonset.yaml         # the agent
+│   └── service.yaml           # api (9700), metrics (9701), proxy (6432)
+└── cilium/
+    └── ciliumnetworkpolicy-postgres.yaml   # L3/L4 micro-seg example
+</pre></div>
+</div>
+</section>
+<section id="daemonset-essentials">
+<h2>DaemonSet essentials<a class="headerlink" href="#daemonset-essentials" title="Link to this heading"></a></h2>
+<p>The agent pod needs:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 66.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hostPID:</span> <span class="pre">true</span></code></p></td>
+<td><p>To see and uprobe database processes running in <strong>other</strong> pods. The agent resolves
+each target binary through <code class="docutils literal notranslate"><span class="pre">/proc/&lt;pid&gt;/root/…</span></code> so the uprobe attaches to the
+right inode across mount namespaces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">privileged</span></code> / <code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_SYS_ADMIN</span></code></p></td>
+<td><p>Load eBPF programs and attach uprobes/kprobes.</p></td>
+</tr>
+<tr class="row-even"><td><p>hostPath mount of <code class="docutils literal notranslate"><span class="pre">/var/run</span></code></p></td>
+<td><p>Makes the Cilium agent socket <code class="docutils literal notranslate"><span class="pre">/var/run/cilium/cilium.sock</span></code> reachable for identity
+enrichment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">hostNetwork</span></code></p></td>
+<td><p>The agent uses a normal <strong>pod</strong> network identity so the inline proxy can reach the
+database <code class="docutils literal notranslate"><span class="pre">ClusterIP</span></code> and sees the real client pod IP. <code class="docutils literal notranslate"><span class="pre">hostPID</span></code> is what the
+uprobes need, not <code class="docutils literal notranslate"><span class="pre">hostNetwork</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ConfigMap</span></code> mounts over <code class="docutils literal notranslate"><span class="pre">/etc/dbguard</span></code>, which <strong>shadows</strong> the image’s
+<code class="docutils literal notranslate"><span class="pre">/etc/dbguard/policies</span></code> directory. The in-cluster config therefore points
+<code class="docutils literal notranslate"><span class="pre">policies.dirs</span></code> at <code class="docutils literal notranslate"><span class="pre">/var/lib/dbguard/policies</span></code> - a writable path baked into the
+image. This both keeps the policies loaded <em>and</em> lets you hot-load a rule by writing a
+file into the pod.</p>
+</div>
+</section>
+<section id="build-and-load-the-image">
+<h2>Build and load the image<a class="headerlink" href="#build-and-load-the-image" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>dbguard:latest<span class="w"> </span>-f<span class="w"> </span>deploy/Dockerfile<span class="w"> </span>.
+<span class="c1"># for kind:</span>
+kind<span class="w"> </span>load<span class="w"> </span>docker-image<span class="w"> </span>dbguard:latest<span class="w"> </span>--name<span class="w"> </span>&lt;cluster&gt;
+</pre></div>
+</div>
+</section>
+<section id="deploy">
+<h2>Deploy<a class="headerlink" href="#deploy" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/k8s/namespace.yaml
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/k8s/rbac.yaml
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/k8s/configmap.yaml
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/k8s/daemonset.yaml
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/k8s/service.yaml
+
+kubectl<span class="w"> </span>-n<span class="w"> </span>dbguard<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>ds/dbguard
+<span class="nv">DBG</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>-n<span class="w"> </span>dbguard<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>dbguard<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[0].metadata.name}'</span><span class="k">)</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>dbguard<span class="w"> </span>logs<span class="w"> </span><span class="s2">"</span><span class="nv">$DBG</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-iE<span class="w"> </span><span class="s2">"uprobe attached|cilium enrichment|proxy: listening"</span>
+</pre></div>
+</div>
+</section>
+<section id="enable-cilium-identity">
+<h2>Enable Cilium identity<a class="headerlink" href="#enable-cilium-identity" title="Link to this heading"></a></h2>
+<p>In the ConfigMap’s <code class="docutils literal notranslate"><span class="pre">dbguard.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">identity</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cilium_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">cilium_api_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unix:///var/run/cilium/cilium.sock</span>
+</pre></div>
+</div>
+<p>Apply and restart the DaemonSet; the log should show
+<code class="docutils literal notranslate"><span class="pre">cilium</span> <span class="pre">enrichment</span> <span class="pre">enabled</span> <span class="pre">...</span> <span class="pre">api=unix:///var/run/cilium/cilium.sock</span></code>, and query events
+will carry <code class="docutils literal notranslate"><span class="pre">cilium_identity</span></code> + <code class="docutils literal notranslate"><span class="pre">cilium_labels</span></code>. See <a class="reference internal" href="../architecture/cilium.html"><span class="doc">Cilium Integration</span></a>.</p>
+</section>
+<section id="route-an-app-through-the-proxy">
+<h2>Route an app through the proxy<a class="headerlink" href="#route-an-app-through-the-proxy" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dbguard</span></code> Service exposes the proxy port (<code class="docutils literal notranslate"><span class="pre">6432</span></code>). Point your application (or a
+test <code class="docutils literal notranslate"><span class="pre">psql</span></code>) at it instead of the database Service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>dbguard<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>api-server<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span><span class="s2">"host=dbguard port=6432 user=postgres dbname=appdb"</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT 1"</span>
+</pre></div>
+</div>
+</section>
+<section id="hot-load-a-policy-into-the-running-agent">
+<h2>Hot-load a policy into the running agent<a class="headerlink" href="#hot-load-a-policy-into-the-running-agent" title="Link to this heading"></a></h2>
+<p>Because <code class="docutils literal notranslate"><span class="pre">policies.dirs</span></code> is a writable path, you can add a rule without a rebuild:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>dbguard<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span><span class="s2">"</span><span class="nv">$DBG</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'cat &gt; /var/lib/dbguard/policies/20-demo.yaml'</span><span class="w"> </span><span class="s">&lt;&lt;'YAML'</span>
+<span class="s">api_version: dbguard.io/v1</span>
+<span class="s">kind: DbGuardPolicy</span>
+<span class="s">metadata: { name: demo }</span>
+<span class="s">spec:</span>
+<span class="s">  default_action: allow</span>
+<span class="s">  rules:</span>
+<span class="s">    - id: demo.block-bonus</span>
+<span class="s">      tables: [employees]</span>
+<span class="s">      query: { pattern: '(?i)\bbonus\b' }</span>
+<span class="s">      actions: [deny, alert]</span>
+<span class="s">YAML</span>
+<span class="c1"># applies within ~2s; delete the file to unload it</span>
+</pre></div>
+</div>
+</section>
+<section id="micro-segmentation-optional-recommended">
+<h2>Micro-segmentation (optional, recommended)<a class="headerlink" href="#micro-segmentation-optional-recommended" title="Link to this heading"></a></h2>
+<p>Apply the example <code class="docutils literal notranslate"><span class="pre">CiliumNetworkPolicy</span></code> so only approved workloads may open a connection
+to the database at all - L3/L4 segmentation underneath dbguard’s L7 statement control:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deploy/cilium/ciliumnetworkpolicy-postgres.yaml
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../architecture/cilium.html"><span class="doc">Cilium Integration</span></a> for how the two layers combine.</p>
+</section>
+<section id="operational-notes">
+<h2>Operational notes<a class="headerlink" href="#operational-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Pod IP changes:</strong> if you pin a proxy <code class="docutils literal notranslate"><span class="pre">upstream</span></code> to a database <strong>pod IP</strong> (rather than
+its Service), re-point it when the database pod restarts. Prefer the Service DNS name.</p></li>
+<li><p><strong>Image rebuilds</strong> are only needed for Go/eBPF changes; policy and most config changes
+are a ConfigMap apply + rollout (or a hot-reloaded file).</p></li>
+<li><p>The <strong>cilium identity API</strong> is on the agent socket, not a TCP port - ensure the
+<code class="docutils literal notranslate"><span class="pre">/var/run</span></code> hostPath mount is present.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="single-host.html" class="btn btn-neutral float-left" title="Single-Host Deployment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/cli.html" class="btn btn-neutral float-right" title="CLI Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dhruthan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

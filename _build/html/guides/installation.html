@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; dbguard Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=0fc419ee" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9cffa99" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quickstart" href="quickstart.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dbguard
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-is-dbguard">What is dbguard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#the-problem-it-solves">The problem it solves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#two-planes-one-policy">Two planes, one policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#core-capabilities">Core capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-it-is-not">What it is <em>not</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-the-build-toolchain-ubuntu">Install the build toolchain (Ubuntu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-from-source">Build from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-debug-symbols-for-stripped-db-binaries">Optional: debug symbols for stripped DB binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verify">Verify</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#start-the-daemon">1. Start the daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#watch-queries-being-audited">2. Watch queries being audited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#block-a-query-detection-plane">3. Block a query (detection plane)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#block-a-query-synchronously-inline-proxy">4. Block a query <em>synchronously</em> (inline proxy)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#write-your-own-rule">5. Write your own rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#key-sections">Key sections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#ebpf"><code class="docutils literal notranslate"><span class="pre">ebpf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#policies"><code class="docutils literal notranslate"><span class="pre">policies</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#identity"><code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#proxies"><code class="docutils literal notranslate"><span class="pre">proxies</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#audit-api-metrics"><code class="docutils literal notranslate"><span class="pre">audit</span></code> / <code class="docutils literal notranslate"><span class="pre">api</span></code> / <code class="docutils literal notranslate"><span class="pre">metrics</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#minimal-configurations">Minimal configurations</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#component-map">Component map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#the-five-layers">The five layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#process-wide-per-engine-attach">Process-wide, per-engine attach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#the-two-planes-side-by-side">The two planes side by side</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/dataflow.html">Data Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#detection-path-ebpf-uprobe">Detection path (eBPF uprobe)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#enforcement-path-inline-proxy">Enforcement path (inline proxy)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#the-pipeline-stages">The pipeline stages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/dataflow.html#policy-evaluation-briefly">Policy evaluation, briefly</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/enforcement.html">Enforcement Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#detection-plane-detect-audit-react">Detection plane: detect, audit, react</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/enforcement.html#reactive-actions-when-drop-enabled-true">Reactive actions (when <code class="docutils literal notranslate"><span class="pre">drop_enabled:</span> <span class="pre">true</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#enforcement-plane-synchronous-inline-proxy">Enforcement plane: synchronous inline proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#choosing-a-model">Choosing a model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/enforcement.html#action-catalogue">Action catalogue</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/cilium.html">Cilium Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#why-identity-not-ip">Why identity, not IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#how-enrichment-works">How enrichment works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#identity-based-access-control">Identity-based access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#micro-segmentation-defence-in-depth">Micro-segmentation (defence in depth)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/cilium.html#end-to-end-on-a-live-cluster">End-to-end, on a live cluster</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../features/policy-dsl.html">Policy DSL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#document-skeleton">Document skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#rule-fields">Rule fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#the-query-matcher">The <code class="docutils literal notranslate"><span class="pre">query</span></code> matcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#the-rate-matcher">The <code class="docutils literal notranslate"><span class="pre">rate</span></code> matcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#matching-semantics">Matching semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#hot-reload">Hot reload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/policy-dsl.html#four-worked-examples">Four worked examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/writing-rules.html">Writing Rules: a Cookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#how-matching-works-read-this-first">How matching works (read this first)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#deny-update-on-a-particular-table">Deny <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> on a particular table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#protect-one-column-from-being-written">Protect one column from being written</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#deny-a-specific-value-being-set">Deny a specific <strong>value</strong> being set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#block-delete-without-a-where-clause">Block <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> without a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#restrict-writes-to-a-table-to-one-user-or-workload">Restrict writes to a table to one user or workload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#patterns-you-will-reuse">Patterns you will reuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#authoring-workflow">Authoring workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/writing-rules.html#enforcement-reminder">Enforcement reminder</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/sql-firewall.html">SQL-Injection Firewall</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#covered-patterns">Covered patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#testing-it">Testing it</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#tuning-and-false-positives">Tuning and false positives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/sql-firewall.html#extending-the-firewall">Extending the firewall</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/pii-protection.html">PII &amp; Sensitive-Column Protection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#deny-vs-mask">Deny vs. mask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#protecting-a-column-the-right-way">Protecting a column the right way</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/pii-protection.html#example-lock-down-an-employees-table">Example: lock down an <code class="docutils literal notranslate"><span class="pre">employees</span></code> table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/rate-limiting.html">Rate Limiting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#example-cap-a-tagged-query">Example: cap a tagged query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#choosing-a-key-and-a-limit">Choosing a key and a limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/rate-limiting.html#built-in-rate-rules">Built-in rate rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/identity-access.html">Identity-Based Access Control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#the-identities-filter">The <code class="docutils literal notranslate"><span class="pre">identities</span></code> filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#allow-list-pattern">Allow-list pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#deny-a-specific-identity">Deny a specific identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#testing-on-a-live-cluster">Testing on a live cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/identity-access.html#where-it-enforces">Where it enforces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features/audit-events.html">Audit, Events &amp; Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#the-audit-store">The audit store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#the-http-api">The HTTP API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features/audit-events.html#metrics">Metrics</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/single-host.html">Single-Host Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/single-host.html#run-under-systemd">Run under systemd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/single-host.html#layout">Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/single-host.html#fronting-a-connection-with-the-proxy">Fronting a connection with the proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/single-host.html#enabling-reactive-enforcement">Enabling reactive enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/single-host.html#avoiding-stale-listeners">Avoiding stale listeners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/kubernetes.html">Kubernetes Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#manifests">Manifests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#daemonset-essentials">DaemonSet essentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#build-and-load-the-image">Build and load the image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#deploy">Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#enable-cilium-identity">Enable Cilium identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#route-an-app-through-the-proxy">Route an app through the proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#hot-load-a-policy-into-the-running-agent">Hot-load a policy into the running agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#micro-segmentation-optional-recommended">Micro-segmentation (optional, recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#operational-notes">Operational notes</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cli.html">CLI Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#dbguardd-the-daemon"><code class="docutils literal notranslate"><span class="pre">dbguardd</span></code> - the daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#dbguard-cli-admin-testing"><code class="docutils literal notranslate"><span class="pre">dbguard-cli</span></code> - admin &amp; testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#validate-policy"><code class="docutils literal notranslate"><span class="pre">validate-policy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#dry-run"><code class="docutils literal notranslate"><span class="pre">dry-run</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html#exit-codes">Exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/policy-schema.html">Policy Schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#document">Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#rule">Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#querymatcher">QueryMatcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#raterule">RateRule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#actions">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#evaluation-order">Evaluation order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/policy-schema.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/config-reference.html">Configuration Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#general"><code class="docutils literal notranslate"><span class="pre">general</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#ebpf"><code class="docutils literal notranslate"><span class="pre">ebpf</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#policies"><code class="docutils literal notranslate"><span class="pre">policies</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#audit"><code class="docutils literal notranslate"><span class="pre">audit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#identity"><code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#api-metrics"><code class="docutils literal notranslate"><span class="pre">api</span></code> / <code class="docutils literal notranslate"><span class="pre">metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/config-reference.html#proxies"><code class="docutils literal notranslate"><span class="pre">proxies</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#query-auditing">Query auditing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#cilium-identity">Cilium identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#inline-proxy">Inline proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#ebpf-load-warnings">eBPF load warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/troubleshooting.html#general">General</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/building.html">Building &amp; Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#repository-layout">Repository layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#build-targets">Build targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#writing-an-ebpf-program">Writing an eBPF program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#module-path">Module path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/building.html#pull-requests">Pull requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/changelog.html#version-1-0-0">Version 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dbguard</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guides/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>dbguard ships as a Go daemon (<code class="docutils literal notranslate"><span class="pre">dbguardd</span></code>), a CLI (<code class="docutils literal notranslate"><span class="pre">dbguard-cli</span></code>), and a set of
+compiled eBPF objects. This page covers building from source on a Linux host; for
+containers and Kubernetes see <a class="reference internal" href="../deployment/kubernetes.html"><span class="doc">Kubernetes Deployment</span></a>.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Linux kernel 5.8+ (6.x recommended)</p></td>
+<td><p>eBPF <code class="docutils literal notranslate"><span class="pre">CO-RE</span></code>, <code class="docutils literal notranslate"><span class="pre">BTF</span></code>, ring buffer, cgroup/LSM hooks. Developed on Ubuntu 24.04.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Go 1.22+</p></td>
+<td><p>Builds <code class="docutils literal notranslate"><span class="pre">dbguardd</span></code> and <code class="docutils literal notranslate"><span class="pre">dbguard-cli</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>clang / llvm, libelf, linux headers</p></td>
+<td><p>Compile the BPF objects (<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bpf</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root / <code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_SYS_ADMIN</span></code></p></td>
+<td><p>Loading eBPF programs and attaching uprobes requires privilege.</p></td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL 14–16 and/or MySQL 8.0</p></td>
+<td><p>The databases you want to protect.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For <strong>SQL query auditing</strong> the daemon attaches a uprobe to a symbol inside the database
+binary (<code class="docutils literal notranslate"><span class="pre">pg_parse_query</span></code> / <code class="docutils literal notranslate"><span class="pre">dispatch_command</span></code>). Distribution packages are often
+stripped; dbguard resolves the symbol from <code class="docutils literal notranslate"><span class="pre">.dynsym</span></code> when possible and falls back to
+debug symbols. Installing the matching <code class="docutils literal notranslate"><span class="pre">-dbgsym</span></code> package widens coverage - see
+<a class="reference internal" href="../reference/troubleshooting.html"><span class="doc">Troubleshooting</span></a>.</p>
+</div>
+</section>
+<section id="install-the-build-toolchain-ubuntu">
+<h2>Install the build toolchain (Ubuntu)<a class="headerlink" href="#install-the-build-toolchain-ubuntu" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>clang<span class="w"> </span>llvm<span class="w"> </span>libelf-dev<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-essential<span class="w"> </span>pkg-config<span class="w"> </span>golang-go
+</pre></div>
+</div>
+</section>
+<section id="build-from-source">
+<h2>Build from source<a class="headerlink" href="#build-from-source" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/databaseguard/dbguard.git
+<span class="nb">cd</span><span class="w"> </span>dbguard
+
+<span class="c1"># 1. compile the eBPF objects into build/bpf/</span>
+make<span class="w"> </span>bpf
+
+<span class="c1"># 2. compile the daemon + CLI into build/bin/</span>
+make<span class="w"> </span>go-build
+
+<span class="c1"># or both at once</span>
+make<span class="w"> </span>bpf<span class="w"> </span>go-build
+</pre></div>
+</div>
+<p>Artifacts land in <code class="docutils literal notranslate"><span class="pre">build/</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build/
+├── bin/
+│   ├── dbguardd          # the daemon
+│   └── dbguard-cli       # policy validation / dry-run / admin
+└── bpf/
+    ├── audit.bpf.o       # SQL uprobes + client-IP correlation
+    ├── conn_anomaly.bpf.o
+    ├── rids.bpf.o
+    ├── sqli_firewall.bpf.o
+    └── ...               # one object per capability
+</pre></div>
+</div>
+</section>
+<section id="optional-debug-symbols-for-stripped-db-binaries">
+<h2>Optional: debug symbols for stripped DB binaries<a class="headerlink" href="#optional-debug-symbols-for-stripped-db-binaries" title="Link to this heading"></a></h2>
+<p>If query auditing reports <em>“uprobe symbol not found - binary is stripped”</em>, install the
+matching debug-symbol package so dbguard can resolve the parser symbol:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PostgreSQL example (Debian/Ubuntu ddebs)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>dbgsym<span class="w">      </span><span class="c1"># installs postgresql-NN-dbgsym, then restart dbguardd</span>
+</pre></div>
+</div>
+</section>
+<section id="verify">
+<h2>Verify<a class="headerlink" href="#verify" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># the binaries exist and run</span>
+./build/bin/dbguardd<span class="w"> </span>--help
+./build/bin/dbguard-cli<span class="w"> </span>--help
+
+<span class="c1"># the policy bundle is valid</span>
+./build/bin/dbguard-cli<span class="w"> </span>validate-policy<span class="w"> </span>configs/policies
+</pre></div>
+</div>
+<p>Next: <a class="reference internal" href="quickstart.html"><span class="doc">Quickstart</span></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dhruthan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

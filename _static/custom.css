@@ -1,0 +1,31 @@
+/* dbguard Docs — dark accents on the Read the Docs theme */
+.wy-side-nav-search { background-color: #0b1b2b !important; }
+.wy-side-nav-search > a { color: #4fd1c5 !important; font-weight: 700; font-size: 1.15em; }
+.wy-side-nav-search > div.version { color: #9fb3c8 !important; }
+.wy-nav-top { background-color: #0b1b2b !important; }
+.wy-nav-side { background-color: #1a2733; }
+
+.rst-content code.literal {
+    color: #0b7285;
+    background: #f0f6fa;
+    border: 1px solid #c9d6df;
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+.highlight pre { border-radius: 6px; }
+.rst-content table.docutils td,
+.rst-content table.docutils th { border-color: #c9d6df !important; }
+.rst-content table.docutils thead th { background: #eef4f8; }
+
+.rst-content .admonition { border-radius: 4px; }
+.rst-content .admonition-title { font-weight: 700; }
+div.admonition.note      { border-left-color: #4fd1c5; }
+div.admonition.tip       { border-left-color: #2f9e44; }
+div.admonition.warning   { border-left-color: #d29922; }
+div.admonition.danger    { border-left-color: #f03e3e; }
+div.admonition.important  { border-left-color: #1c7ed6; }
+
+/* verdict chips used in tables */
+.allow { color: #2f9e44; font-weight: 700; }
+.deny  { color: #f03e3e; font-weight: 700; }
